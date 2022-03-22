@@ -13,7 +13,7 @@ class Boundary {
 
     draw(){
         c.fillStyle = 'blue';
-        c.fillRect(this.position.x, this.position.y, this.position.width, this.position.height);
+        c.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 }
 
@@ -33,34 +33,25 @@ const map = [
     ['|', '.', '.', '.', '.', '.', '.', '.', '.', 'p', '|'],
     ['4', '-', '-', '-', '-', '-', '-', '-', '-', '-', '3']
   ]
-  
 
-const boundaries = [
-    new Boundary({
-        position: {
-            x: 0,
-            y: 0
+const boundaries = [];
+
+map.forEach((row, i) => {
+    row.forEach((Symbol, j) => {
+        switch(Symbol) {
+        case '-':
+            boundaries.push(
+                new Boundary({
+                    position: {
+                        x: 40 * j,
+                        y: 40 * i
+                    }
+                })
+            )
+            break
         }
-    }),
-    new Boundary({
-        position: {
-            x: 41,
-            y: 0
-        }
-    }),
-    new Boundary({
-        position: {
-            x: 41,
-            y: 0
-        }
-    }),
-    new Boundary({
-        position: {
-            x: 41,
-            y: 0
-        }
-    })
-];
+    });
+});
 
 
 boundaries.forEach((boundary) => {
