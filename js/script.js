@@ -43,6 +43,7 @@ class Player{
     }
 }
 
+//Mapa do jogo
 /*const map = [
     ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
     ['|', '.', '.', '.', '.', '.', '.', '.', '.', '.', '|'],
@@ -92,7 +93,7 @@ map.forEach((row, i) => {
                     }
                 })
             )
-            break
+            break;
         }
     });
 });
@@ -109,15 +110,14 @@ function animate(){
 
 animate();
 
-boundaries.forEach((boundary) => {
+/*boundaries.forEach((boundary) => {
     boundary.draw();
 });
 
+player.update();*/
 
-player.update();
 
-
-//Movimentação
+//Movimentação do player
 addEventListener('keydown', ({ key }) => {
     switch(key){
         case 'w':
@@ -131,6 +131,26 @@ addEventListener('keydown', ({ key }) => {
             break;
         case 'd':
             player.velocity.x = 5;
+            break;          
+    }
+
+    console.log(player.velocity);
+});
+
+
+addEventListener('keyup', ({ key }) => {
+    switch(key){
+        case 'w':
+            player.velocity.y = 0;
+            break;
+        case 'a':
+            player.velocity.x = 0;
+            break;
+        case 's':
+            player.velocity.y = 0;
+            break;
+        case 'd':
+            player.velocity.x = 0;
             break;          
     }
 
