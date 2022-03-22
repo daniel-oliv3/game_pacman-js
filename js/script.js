@@ -20,6 +20,29 @@ class Boundary {
 }
 
 
+//Player
+class Player{
+   constructor({ position, velocity }){
+        this.position = position;
+        this.velocity = velocity;
+        this.radius = 15;
+    }
+
+    draw(){
+        c.beginPath();
+        c.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+        c.fillStyle = 'yellow';
+        c.fill();
+        c.closePath();
+    }
+
+    update(){
+        this.draw();
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+    }
+}
+
 /*const map = [
     ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2'],
     ['|', '.', '.', '.', '.', '.', '.', '.', '.', '.', '|'],
@@ -46,6 +69,16 @@ const map = [
 ]  
 
 const boundaries = [];
+const player = new Player({
+    position: {
+        x: Boundary.width + Boundary.width / 2,
+        y: Boundary.height + Boundary.height / 2
+    },
+    velocity: {
+        x: 0,
+        y: 0
+    }
+});
 
 map.forEach((row, i) => {
     row.forEach((Symbol, j) => {
@@ -64,7 +97,47 @@ map.forEach((row, i) => {
     });
 });
 
+function animate(){
+    requestAnimationFrame(animate);
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    boundaries.forEach((boundary) => {
+        boundary.draw();
+    });
+
+    player.update();
+}
+
+animate();
 
 boundaries.forEach((boundary) => {
     boundary.draw();
 });
+
+
+player.update();
+
+
+//Movimentação
+addEventListener('keydown', ({ key }) => {
+    switch(key){
+        case 'w':
+            player.velocity.y = -5;
+            break;
+        case 'a':
+            player.velocity.x = -5;
+            break;
+        case 's':
+            player.velocity.y = 5;
+            break;
+        case 'd':
+            player.velocity.x = 5;
+            break;          
+    }
+
+    console.log(player.velocity);
+});
+
+
+
+
+
