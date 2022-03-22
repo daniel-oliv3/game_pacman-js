@@ -121,11 +121,18 @@ function animate(){
     c.clearRect(0, 0, canvas.width, canvas.height);
     boundaries.forEach((boundary) => {
         boundary.draw();
+        
+        //detecção de colisão
+        if(player.position.y - player.radius <= boundary.position.y + boundary.height && player.position.x + player.radius >= boundary.position.x && player.position.y + player.radius >= boundary.position.y && player.position.x - player.radius <= boundary.position.x + boundary.width){
+            console.log('estamos colidindo');
+            player.velocity.x = 0;
+            player.velocity.y = 0;
+        }
     });
 
     player.update();
-    player.velocity.x = 0;
-    player.velocity.y = 0;
+    //player.velocity.x = 0;
+    //player.velocity.y = 0;
 
     if(keys.w.pressed && lastKey === 'w'){
         player.velocity.y = -5;
@@ -161,8 +168,6 @@ addEventListener('keydown', ({ key }) => {
             lastKey = 'd';
             break;          
     }
-
-    //console.log(keys.d.pressed);
 });
 
 
@@ -181,8 +186,6 @@ addEventListener('keyup', ({ key }) => {
             keys.d.pressed = false;
             break;          
     }
-
-    console.log(player.velocity);
 });
 
 
